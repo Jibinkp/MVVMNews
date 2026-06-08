@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -51,8 +52,12 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
         p1: Int
     ) {
         val article = differ.currentList[p1]
-
         val ivArticleImage: ImageView = p0.itemView.findViewById(R.id.ivArticleImage)
+        val tvSource: TextView = p0.itemView.findViewById(R.id.tvSource)
+        val tvTitle: TextView = p0.itemView.findViewById(R.id.tvTitle)
+        val tvDescription: TextView = p0.itemView.findViewById(R.id.tvDescription)
+        val tvPublishedAt: TextView = p0.itemView.findViewById(R.id.tvPublishedAt)
+
         p0.itemView.apply {
              Glide.with(this).load(article.urlToImage).into(ivArticleImage)
             setOnItemClickListener {
@@ -61,6 +66,11 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
                 }
             }
         }
+        tvTitle.text = article.title
+        tvSource.text = article.source.name
+        tvDescription.text = article.description
+        tvPublishedAt.text = article.publishedAt
+
     }
 
     override fun getItemCount(): Int {
