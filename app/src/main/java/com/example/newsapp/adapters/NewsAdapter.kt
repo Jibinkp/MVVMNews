@@ -11,9 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.models.Article
 
-class NewsAdapter(
-
-): RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     inner class ArticleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 
