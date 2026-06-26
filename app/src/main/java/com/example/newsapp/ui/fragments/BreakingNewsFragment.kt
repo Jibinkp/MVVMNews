@@ -3,8 +3,8 @@ package com.example.newsapp.ui.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AbsListView
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -56,6 +56,7 @@ class BreakingNewsFragment: Fragment(R.layout.fragment_breaking_news) {
                     hideProgressBar()
                     response.message?.let { message ->
                         Log.d(TAG,"An error occured: $message")
+                        Toast.makeText(activity, "An error occurred: $message", Toast.LENGTH_SHORT).show()
                     }
                 }
                 is Resource.Loading -> {
@@ -104,15 +105,8 @@ class BreakingNewsFragment: Fragment(R.layout.fragment_breaking_news) {
             val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
             val isAtLastItem = firstVisiblePosition + visibleItemCount >= totalItemCount-1
             val isNotAtBeginning = firstVisiblePosition >= 0
-            // val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
-
-            Log.d(TAG,"33333333 $isNotLoadingAndNotLastPage $isAtLastItem $isNotAtBeginning")
-
-            val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning /*&&
-                    isTotalMoreThanVisible */&& isScrolling
-            Log.d(TAG,"2222222 $shouldPaginate")
+            val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isScrolling
             if (shouldPaginate) {
-                Log.d(TAG,"11111111111111")
                 viewModel.getBreakingNews("us")
                 isScrolling = false
             }
